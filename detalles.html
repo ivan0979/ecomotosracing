@@ -3,76 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <title>Especificaciones Técnicas | EcoMotos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #ff003c; --bg: #0a0b10; --card: #161b22; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; margin: 0; padding: 40px; }
-        .container { max-width: 900px; margin: auto; background: var(--card); padding: 40px; border-radius: 20px; border: 1px solid #333; }
-        .grid-detalle { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        img { width: 100%; border-radius: 10px; border: 2px solid var(--accent); }
-        h1 { color: var(--accent); font-size: 3rem; margin-top: 0; }
-        .precio { font-size: 2.5rem; font-weight: bold; margin: 20px 0; }
-        .info-tecnica { background: #000; padding: 20px; border-radius: 10px; }
-        .dato { display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding: 10px 0; }
-        .back-btn { display: inline-block; color: white; text-decoration: none; margin-bottom: 20px; font-weight: bold; }
-        .back-btn:hover { color: var(--accent); }
+        :root { --accent: #ff003c; --bg: #050505; --card: #111111; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 40px; }
+        .container { max-width: 1000px; margin: auto; background: var(--card); padding: 40px; border-radius: 10px; border: 1px solid #222; }
+        .grid-detalle { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-bottom: 50px; }
+        img { width: 100%; border-radius: 5px; filter: grayscale(20%); transition: 0.5s; }
+        img:hover { filter: grayscale(0%); }
+        h1 { font-family: 'Syncopate', sans-serif; color: white; font-size: 2.5rem; margin-top: 0; }
+        .precio { font-size: 2.5rem; font-weight: bold; color: var(--accent); margin: 20px 0; }
+        
+        /* Lista de Información Técnica */
+        .info-tecnica { background: #000; padding: 25px; border-radius: 5px; border-left: 4px solid var(--accent); }
+        .dato { display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding: 12px 0; font-size: 0.9rem; }
+        .dato span { color: #8b949e; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* Estilos del Formulario */
+        .contacto-box { background: #0a0a0a; padding: 40px; border-radius: 5px; border: 1px solid #333; }
+        input, select, textarea { 
+            width: 100%; background: #111; border: 1px solid #333; padding: 15px; 
+            color: white; margin-bottom: 15px; border-radius: 3px; font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        }
+        input:focus { border-color: var(--accent); outline: none; }
+        .btn-enviar { 
+            background: var(--accent); color: white; border: none; width: 100%; padding: 20px; 
+            font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
+            font-family: 'Syncopate', sans-serif; transition: 0.3s;
+        }
+        .btn-enviar:hover { background: white; color: black; }
+        .back-btn { display: inline-block; color: var(--accent); text-decoration: none; margin-bottom: 30px; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <a href="index.html" class="back-btn">← Volver al Concesionario</a>
+    <a href="index.html" class="back-btn">← Volver al catálogo</a>
 
-    <div class="container" id="contenido-moto">
+    <div class="container">
+        <div id="contenido-moto">
+            </div>
+
+        <div class="contacto-box">
+            <h2 style="font-family: 'Syncopate', sans-serif; margin-bottom: 10px;">SOLICITAR INFORMACIÓN</h2>
+            <p style="color: #8b949e; margin-bottom: 30px;">Envía tus datos para recibir una oferta personalizada.</p>
+            
+            <form action="https://formspree.io/f/mjgjyjzk" method="POST">
+                <input type="text" name="cliente" placeholder="Nombre completo" required>
+                <input type="email" name="_replyto" placeholder="Tu Email" required>
+                <select name="motivo">
+                    <option value="Prueba">Solicitar prueba de conducción</option>
+                    <option value="Financiacion">Cálculo de financiación</option>
+                    <option value="Stock">Consultar disponibilidad</option>
+                </select>
+                <textarea name="mensaje" rows="4" placeholder="Escribe tu consulta..."></textarea>
+                
+                <input type="hidden" name="modelo_moto" id="modelo_oculto">
+                
+                <button type="submit" class="btn-enviar">Enviar Solicitud</button>
+            </form>
         </div>
+    </div>
 
     <script>
-        // 1. Datos de las motos (Como si fuera una mini base de datos)
         const motos = {
             bmw: {
                 nombre: "BMW S 1000 RR",
                 precio: "23.070€",
-                estado: "Disponible (Entrega inmediata)",
-                descripcion: "La superbike definitiva. Equipada con el motor ShiftCam de 4 cilindros, ofrece una potencia lineal y una electrónica de competición.",
+                estado: "Disponible",
+                descripcion: "La superbike definitiva con motor ShiftCam.",
                 cv: "207 CV",
                 peso: "197 kg",
-                img: "bmw.jpg"
+                img: "https://images.unsplash.com/photo-1614165936161-44f195af330b?q=80&w=800"
             },
             ducati: {
                 nombre: "Ducati Panigale V4",
                 precio: "27.090€",
-                estado: "Bajo pedido (15 días)",
-                descripcion: "Diseñada para dominar el cronómetro. Su chasis 'Front Frame' y su motor V4 a 90º derivado de MotoGP la hacen única en el mundo.",
+                estado: "Bajo pedido",
+                descripcion: "El alma de MotoGP en una moto de calle.",
                 cv: "214 CV",
                 peso: "198 kg",
-                img: "ducati-panigale-v4.jpg"
+                img: "https://images.unsplash.com/photo-1621287119056-b0769a797828?q=80&w=800"
             }
         };
 
-        // 2. Lógica para leer la URL (Saber si es ?moto=bmw o ?moto=ducati)
         const urlParams = new URLSearchParams(window.location.search);
         const motoSeleccionada = urlParams.get('moto');
         const datos = motos[motoSeleccionada];
 
-        // 3. Pintar los datos en la página
         if (datos) {
+            // Rellenar la info de la moto
             document.getElementById('contenido-moto').innerHTML = `
                 <div class="grid-detalle">
-                    <div>
-                        <img src="${datos.img}" alt="${datos.nombre}">
-                    </div>
+                    <div><img src="${datos.img}"></div>
                     <div>
                         <h1>${datos.nombre}</h1>
-                        <p>${datos.descripcion}</p>
+                        <p style="color: #a0a0a0; line-height: 1.6;">${datos.descripcion}</p>
                         <div class="precio">${datos.precio}</div>
                         <div class="info-tecnica">
-                            <div class="dato"><span>Estado:</span> <strong>${datos.estado}</strong></div>
-                            <div class="dato"><span>Potencia:</span> <strong>${datos.cv}</strong></div>
-                            <div class="dato"><span>Peso en lleno:</span> <strong>${datos.peso}</strong></div>
+                            <div class="dato"><span>Estado</span> <strong>${datos.estado}</strong></div>
+                            <div class="dato"><span>Potencia</span> <strong>${datos.cv}</strong></div>
+                            <div class="dato"><span>Peso</span> <strong>${datos.peso}</strong></div>
                         </div>
                     </div>
                 </div>
             `;
-        } else {
-            document.getElementById('contenido-moto').innerHTML = "<h1>Moto no encontrada</h1>";
+            // Poner el nombre de la moto en el campo oculto del formulario
+            document.getElementById('modelo_oculto').value = datos.nombre;
         }
     </script>
 </body>
