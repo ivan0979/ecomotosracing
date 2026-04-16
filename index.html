@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoMotos Racing | Exclusive Superbikes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --accent: #ff003c;
+            --bg: #050505;
+            --surface: #111111;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: white;
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar Profesional y Limpia */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            box-sizing: border-box;
+            border-bottom: 1px solid #222;
+        }
+
+        /* Contenedor del Logo y Nombre */
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* NUEVO LOGO ICONO SVG (Casco Alado + 'E') */
+        .brand-logo-icon {
+            width: 45px;
+            height: 45px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="%23ff003c"/><stop offset="100%" stop-color="%23ff003c" stop-opacity="0.5"/></linearGradient></defs><path d="M50,10 C20,10 10,40 10,60 C10,90 40,90 50,90 C60,90 90,90 90,60 C90,40 80,10 50,10 Z" fill="url(%23g)"/><path d="M50,15 C25,15 15,40 15,58 C15,85 45,85 50,85 C55,85 85,85 85,58 C85,40 75,15 50,15 Z" fill="%23050505"/><text x="50" y="65" font-family="Syncopate, sans-serif" font-weight="bold" font-size="40" fill="white" text-anchor="middle">E</text><path d="M10,40 L30,45 L10,50 Z" fill="%23ff003c" fill-opacity="0.8"/><path d="M90,40 L70,45 L90,50 Z" fill="%23ff003c" fill-opacity="0.8"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .logo-text {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.2rem;
+            color: white;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo-text span { color: var(--accent); }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: var(--accent); }
+
+        /* Hero Moderno con Foto de Fondo y PATRÓN GEOMÉTRICO (QUITADO LOGO DE DETRÁS) */
+        .hero {
+            height: 85vh;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), var(--bg)), 
+                        url('https://images.unsplash.com/photo-1558981403-c5f9199a5ad8?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            position: relative;
+        }
+
+        /* NUEVO: SUPERPOSICIÓN DE PATRÓN GEOMÉTRICO SUTIL */
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Patrón de líneas cruzadas sutiles en SVG */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path d="M0,0 L60,60 M60,0 L0,60" stroke="%23333333" stroke-width="0.5" stroke-opacity="0.1"/></svg>');
+            background-repeat: repeat;
+            opacity: 0.5;
+            z-index: 1; /* Detrás del texto, delante de la foto */
+        }
+
+        /* Contenedor del Texto (QUITADO EL LOGO DE DETRÁS) */
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 10; /* Aseguramos que esté sobre el patrón */
+            padding: 50px 0;
+            background-image: none !important; /* FORZAMOS QUITAR CUALQUIER LOGO ANTERIOR */
+        }
+
+        .hero h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 4.5rem;
+            line-height: 1;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .hero span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            margin: 30px 0 0;
+            border-left: 3px solid var(--accent);
+            padding-left: 20px;
+            max-width: 500px;
+        }
+
+        /* Sección de Búsqueda */
+        .search-section {
+            padding: 80px 0 50px;
+            text-align: center;
+        }
+
+        #buscador {
+            background: transparent;
+            border: 0;
+            border-bottom: 2px solid #222;
+            padding: 15px;
+            color: white;
+            width: 40%;
+            font-size: 1.8rem;
+            text-align: center;
+            outline: none;
+            transition: 0.5s;
+            font-family: 'Syncopate', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        #buscador:focus {
+            border-color: var(--accent);
+            width: 50%;
+        }
+
+        /* Grid Estilizado */
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 40px 100px;
+        }
+
+        .concesionario {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 50px;
+        }
+
+        .moto-card {
+            background: var(--surface);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: 0.5s;
+            position: relative;
+            border: 1px solid #1a1a1a;
+        }
+
+        .moto-card:hover {
+            background: #1a1a1a;
+            border-color: #333;
+            transform: translateY(-5px);
+        }
+
+        .moto-img-box {
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .moto-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(60%);
+            transition: 0.8s;
+        }
+
+        .moto-card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.03);
+        }
+
+        .moto-info {
+            padding: 40px;
+        }
+
+        .tag {
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .moto-info h3 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2rem;
+            margin: 0 0 20px;
+            letter-spacing: 1px;
+        }
+
+        .precio-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+        }
+
+        .precio {
+            font-size: 1.8rem;
+            font-weight: bold;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-view {
+            color: white;
+            text-decoration: none;
+            border: 1px solid #444;
+            padding: 15px 40px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-view:hover {
+            background: white;
+            color: black;
+            border-color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="brand-container">
+            <div class="brand-logo-icon"></div> <div class="logo-text">ECO-MOTOS <span>RACING</span></div>
+        </div>
+        <div>
+            <a href="#motos">Motos</a>
+            <a href="#">Competición</a>
+            <a href="#">Configurador</a>
+            <a href="#">Contacto</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>DOMINA EL <span>ASFALTO</span></h1>
+            <p>Ingeniería de precisión y rendimiento sin límites. Descubre nuestra selección exclusiva de Superbikes para la temporada 2026.</p>
+        </div>
+    </div>
+
+    <div class="container" id="motos">
+        <div class="search-section">
+            <input type="text" id="buscador" placeholder="BUSCAR MODELO..." onkeyup="filtrarMotos()">
+        </div>
+
+        <div class="concesionario" id="lista-motos">
+            
+            <div class="moto-card">
+                <div class="moto-img-box">
+                    <img src="bmw.jpg" alt="BMW S1000RR">
+                </div>
+                <div class="moto-info">
+                    <span class="tag">TOP VENTAS // ALEMANIA</span>
+                    <h3>BMW S 1000 RR</h3>
+                    <div class="precio-row">
+                        <div class="precio">23.070€</div>
+                        <a href="detalles.html?moto=bmw" class="btn-view">Explorar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="moto-card">
+                <div class="moto-img-box">
+                    <img src="ducati-panigale-v4.jpg" alt="Ducati Panigale">
+                </div>
+                <div class="moto-info">
+                    <span class="tag">EDICIÓN LIMITADA // ITALIA</span>
+                    <h3>PANIGALE V4</h3>
+                    <div class="precio-row">
+                        <div class="precio">27.090€</div>
+                        <a href="detalles.html?moto=ducati" class="btn-view">Explorar</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function filtrarMotos() {
+            let input = document.getElementById('buscador').value.toLowerCase();
+            let tarjetas = document.getElementsByClassName('moto-card');
+            for (let i = 0; i < tarjetas.length; i++) {
+                let nombre = tarjetas[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+                tarjetas[i].style.display = nombre.includes(input) ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Especificaciones Técnicas | EcoMotos</title>
+    <style>
+        :root { --accent: #ff003c; --bg: #0a0b10; --card: #161b22; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; margin: 0; padding: 40px; }
+        .container { max-width: 900px; margin: auto; background: var(--card); padding: 40px; border-radius: 20px; border: 1px solid #333; }
+        .grid-detalle { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        img { width: 100%; border-radius: 10px; border: 2px solid var(--accent); }
+        h1 { color: var(--accent); font-size: 3rem; margin-top: 0; }
+        .precio { font-size: 2.5rem; font-weight: bold; margin: 20px 0; }
+        .info-tecnica { background: #000; padding: 20px; border-radius: 10px; }
+        .dato { display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding: 10px 0; }
+        .back-btn { display: inline-block; color: white; text-decoration: none; margin-bottom: 20px; font-weight: bold; }
+        .back-btn:hover { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">← Volver al Concesionario</a>
+
+    <div class="container" id="contenido-moto">
+        </div>
+
+    <script>
+        // 1. Datos de las motos (Como si fuera una mini base de datos)
+        const motos = {
+            bmw: {
+                nombre: "BMW S 1000 RR",
+                precio: "23.070€",
+                estado: "Disponible (Entrega inmediata)",
+                descripcion: "La superbike definitiva. Equipada con el motor ShiftCam de 4 cilindros, ofrece una potencia lineal y una electrónica de competición.",
+                cv: "207 CV",
+                peso: "197 kg",
+                img: "bmw.jpg"
+            },
+            ducati: {
+                nombre: "Ducati Panigale V4",
+                precio: "27.090€",
+                estado: "Bajo pedido (15 días)",
+                descripcion: "Diseñada para dominar el cronómetro. Su chasis 'Front Frame' y su motor V4 a 90º derivado de MotoGP la hacen única en el mundo.",
+                cv: "214 CV",
+                peso: "198 kg",
+                img: "ducati-panigale-v4.jpg"
+            }
+        };
+
+        // 2. Lógica para leer la URL (Saber si es ?moto=bmw o ?moto=ducati)
+        const urlParams = new URLSearchParams(window.location.search);
+        const motoSeleccionada = urlParams.get('moto');
+        const datos = motos[motoSeleccionada];
+
+        // 3. Pintar los datos en la página
+        if (datos) {
+            document.getElementById('contenido-moto').innerHTML = `
+                <div class="grid-detalle">
+                    <div>
+                        <img src="${datos.img}" alt="${datos.nombre}">
+                    </div>
+                    <div>
+                        <h1>${datos.nombre}</h1>
+                        <p>${datos.descripcion}</p>
+                        <div class="precio">${datos.precio}</div>
+                        <div class="info-tecnica">
+                            <div class="dato"><span>Estado:</span> <strong>${datos.estado}</strong></div>
+                            <div class="dato"><span>Potencia:</span> <strong>${datos.cv}</strong></div>
+                            <div class="dato"><span>Peso en lleno:</span> <strong>${datos.peso}</strong></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            document.getElementById('contenido-moto').innerHTML = "<h1>Moto no encontrada</h1>";
+        }
+    </script>
+</body>
+</html>
